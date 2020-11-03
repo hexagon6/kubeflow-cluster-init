@@ -10,9 +10,29 @@ Vagrant.configure("2") do |config|
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
+  # greet everyone gently
+  config.vm.provision "shell", inline: "echo Hello kubeflow cluster"
+
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "centos/8"
+
+  config.vm.define "master" do |node0|
+    node0.vm.box = "centos/8"
+    node0.vm.network :private_network, ip: "10.0.0.10"
+    node0.vm.hostname = "node0"
+  end
+
+  config.vm.define "worker1" do |node1|
+    node1.vm.box = "centos/8"
+    node1.vm.network :private_network, ip: "10.0.0.11"
+    node1.vm.hostname = "node1"
+  end
+
+  config.vm.define "worker2" do |node2|
+    node2.vm.box = "centos/8"
+    node2.vm.network :private_network, ip: "10.0.0.12"
+    node2.vm.hostname = "node2"
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
