@@ -19,6 +19,11 @@ Vagrant.configure("2") do |config|
   N = 3
   (1..N).each do |node_id|
     config.vm.define "node#{node_id}" do |node|
+      config.vm.provider "virtualbox" do |v|
+        v.check_guest_additions = false
+        v.memory = 1024
+        v.cpus = 2
+      end
       node.vm.box = "centos/8"
       node.vm.hostname = "node#{node_id}"
       node.vm.network :private_network, ip: "10.0.0.#{10+node_id}"
