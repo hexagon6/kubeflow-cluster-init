@@ -21,3 +21,7 @@
 2. since everything breaks at least once, we need to fix the installation manually by running `scripts/fix-centos8-docker-setup.sh` # please read it before running!
 3. run `vagrant up --provision` a second time after seccomp has been updated to v2.4 (step 2)
 4. success?!
+
+## development
+
+If you need to debug ansible roles, this might be useful: `ansible-playbook --become -CD -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory playbook.yml`
