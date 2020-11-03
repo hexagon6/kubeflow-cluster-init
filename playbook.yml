@@ -1,0 +1,5 @@
+- hosts: all
+  roles:
+    - role: haxorof.docker_ce
+  vars:
+    - docker_x_redhat_centos_8_workaround: yes

@@ -23,6 +23,15 @@ Vagrant.configure("2") do |config|
       node.vm.hostname = "node#{node_id}"
       node.vm.network :private_network, ip: "10.0.0.#{10+node_id}"
 
+      # Only execute once the Ansible provisioner,
+      # when all the machines are up and ready.
+      if node_id == N
+        node.vm.provision :ansible do |ansible|
+          # Disable default limit to connect to all the machines
+          ansible.limit = "all"
+          ansible.playbook = "playbook.yml"
+        end
+      end
     end
   end
 
