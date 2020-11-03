@@ -1,5 +1,7 @@
 - hosts: all
   roles:
     - role: haxorof.docker_ce
+    - role: k8s
   vars:
     - docker_x_redhat_centos_8_workaround: yes
+    - kubernetes_version: 1.13.*
