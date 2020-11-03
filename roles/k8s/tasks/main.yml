@@ -1,0 +1,28 @@
+---
+
+# This playbook deploys a standard kubernetes cluster master node
+# based on this installation steps: https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/
+- name: Add yum key for kubernetes repository
+  become: yes
+  yum_repository:
+    name: k8s
+    description: Kubernetes yum repo
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    state: present
+
+- name: Install Kubernetes
+  become: yes
+  yum:
+    name:
+      - "kubelet-{{ kubernetes_version }}"
+      - "kubeadm-{{ kubernetes_version }}"
+      - "kubectl-{{ kubernetes_version }}"
+    state: present
+
+- name: Install kubernetes-cni
+  become: yes
+  yum:
+    name: "kubernetes-cni"
+    state: present
+
